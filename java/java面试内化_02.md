@@ -7,9 +7,20 @@
 
 饿汉式：<font color=#66CC99 style=" font-weight:bold;">线程安全，一开始就初始化</font>。
 在线程访问单例对象之前就已经创建好一个私有静态全局对象。再加上，由于一个<font color=#66CC99 style=" font-weight:bold;">类在整个生命周期中只会被加载一次</font>，因此该单例类只会创建一个实例。线程每次都只能也必定只可以拿到这个唯一的对象
-![](img/Pasted%20image%2020220802234025.png)
+```java
+public class Singleton {
+    private static final Singleton instance = new Singleton();
+
+    private Singleton() {
+        // 私有构造方法，防止外部实例化
+    }
+
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+```
 懒汉式：<font color=#66CC99 style=" font-weight:bold;">非线程安全，延迟初始化</font>。
-![](img/Pasted%20image%2020220802234059.png)
 ```java
 if(instance == null){
 	//多线程情况下,多个线程同时检查instance=null的情况下会创建多个实例
@@ -20,6 +31,7 @@ if(instance == null){
 双检锁：线程安全，延迟初始化。
 给该类加锁后,该段代码只能被一个线程访问
 ```java
+private static volatile Singleton instance;
 synchroized(Singleton.class){
 	
 	if(singleton == null){
@@ -27,7 +39,7 @@ synchroized(Singleton.class){
 	}
 }
 ```
-![](img/Pasted%20image%2020220802234113.png)
+
 
 
 ##### 1.10反射（了解）
@@ -54,7 +66,7 @@ Class clazz=Class.forName("类的全路径"); (最常用)
 ```
 
 
-##### 1.11 jdk1.8 的新特性（高薪常问）
+##### 1.11 jdk1.8 的新特性（常问）
 <font color=#FFCCCC style=" font-weight:bold;">暂时略过</font>
 
 1 Lambda 表达式

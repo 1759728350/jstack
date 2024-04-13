@@ -11,7 +11,7 @@ Java I/O有两个
 面向字符流的Reader和Writer
 
 Java中InputStreamReader和InputStreamWriter是字节流向字符流解码的桥梁
-![[Pasted image 20220817185950.png]]
+![[img/Pasted image 20220817185950.png]]
 
 Java中InputStreamReader和InputStreamWriter是字节流向[字符流](https://so.csdn.net/so/search?q=%E5%AD%97%E7%AC%A6%E6%B5%81&spm=1001.2101.3001.7020)解码的桥梁
 

@@ -70,8 +70,6 @@ java里<font color=#66CC99 style=" font-weight:bold;">方法一结束就要销�
 static修饰的代码块和static修饰的成员方法一样不能访问实例变量
 因此<font color=#66CC99 style=" font-weight:bold;">其主要作用就是初始化静态变量</font>
 
-##### static内部类
-<font color=#99CCFF style=" font-weight:bold;">暂时不知道内部类有啥用</font>
 
 ##### static唯一副本特性
 因为static修饰的成员变量在内存中只有一个副本

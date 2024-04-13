@@ -1,7 +1,7 @@
 
 
-## 1.Java 基础 知识
-##### 1.1面向对象(了解)
+### 1.Java 基础 知识
+##### 1.1面向对象三特性(了解)
 
 封装
 就是把对象的属性和方法结合为一个整体，并尽可能<font color=#66CC99 style=" font-weight:bold;">隐藏内部实现细节</font>，就是把不想告诉或者不该告诉别人的东西隐藏起来，把可以告诉别人的公开，别人<font color=#66CC99 style=" font-weight:bold;">只能用我暴露的功能</font>实现需求，而不知道是如何实现的。增加安全性。
@@ -15,11 +15,8 @@
 (左边)              (右边)
 ```
 
-抽象
-抽象类用 abstract 关键字来修饰，用 abstract修饰类时，<font color=#66CC99 style=" font-weight:bold;">此类就不能被实例化</font>，从这里可以看出，抽象类（接口）就是为了继承而存在的
 
 ##### 1.2数据类型(了解)
-
 
 ![](img/Pasted%20image%2020220801191718.png)
 
@@ -117,7 +114,6 @@ System.out.println(s1.hashCode());
 System.out.println(s2.hashCode());
 //1179395
 //1179395
-
 ```
 
 
@@ -136,8 +132,12 @@ object类中
 public native int hashCode();
 ```
 
-hashCode()存在的意义是什么？我们通过前面可以了解到hashCode()将一个字符串的值变为了一个整数，那么这样做的作用是什么呢？我们来看一段代码，如图。
-![](img/Pasted%20image%2020220803004514.png)
+hashCode()存在的意义是什么？我们通过前面可以了解到hashCode()将一个字符串的值变为了一个整数，那么这样做的作用是什么呢？
+
+1. **对象相等性判断依据**：在Java中，根据对象的哈希码可以快速判断两个对象是否相等。当两个对象的哈希码不相等时，可以直接判定这两个对象不相等；当两个对象的哈希码相等时，还需要通过`equals()`方法进行深度比较来确保对象的相等性。
+    
+2. **集合框架的使用hashCode提高查找性能**：在使用Java集合框架中的一些数据结构时，如HashSet、HashMap等，正确实现`hashCode()`方法可以提高对象在集合中的存储和检索效率。如果两个对象具有相同的`hashCode`，那么它们就有可能会被放在同一个哈希桶中，从而减少了数据的查找时间。
+
 我们平时经常用到map来存储对象，因为map是key，value形式的，它不像list形式的集合可以有顺序的从0开始往集合里放数据，而是随意的放，但是取值的话就很麻烦，因为它存放值的时候没有顺序，所以取值的时候根据key去里面一个一个对比，等找到key相等的值就取出，这样就会造成效率问题而<font color=#66CC99 style=" font-weight:bold;">hashCode的存在主要是用于查找的快捷性</font>。
 当我们用到hashCode()可以看到我们将name计算为3373707，age计算为98511，这样的话我们存值的时候就根据计算后的数值进行对应位置的存储，同样当我们get取值的时候再次将key计算为hashCode()值，因为同一个字符串hashCode()值相等，这个时候我们就可以<font color=#66CC99 style=" font-weight:bold;">直接根据hashCode()值将对应位置的数据取出，就不需要对key一个一个进行对比了，这样大大提高了效率</font>，这就是为什么有hashCode()存在的原因了。
 
@@ -153,6 +153,8 @@ StringBuilder 字符串变量（非线程安全）
 String 中的 String 类中使用 final 关键字修饰字符数组来保存字符串，
 <font color=#66CC99 style=" font-weight:bold;">private final char value[] ，String 对象是不可变的，也就可以理解为常量，线程安全。</font>
 
+StringBuilder和StringBuffer没有加final, 所以是可变的
+
 AbstractStringBuilder 是 StringBuilder 与 StringBuffer 的公共父类，定义了
 一些字符串的基本操作，如 expandCapacity、append、insert、indexOf 等公共方法。
 StringBuffer <font color=#66CC99 style=" font-weight:bold;">对方法加了同步锁</font>或者对调用的方法加了同步锁，所以是线程安全
@@ -160,13 +162,14 @@ StringBuffer <font color=#66CC99 style=" font-weight:bold;">对方法加了同�
 
 StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的。
 
+
 小结：
 
-（1）如果要操作少量的数据用 String；
+（1）如果要很少修改操作的数据用 String；
 
-（2）多线程操作字符串缓冲区下操作大量数据用 StringBuffer；
+（2）多线程操作字符串缓冲区下经常<font color=#66CC99 style=" font-weight:bold;">拼接替换</font>用 StringBuffer；
 
-（3）单线程操作字符串缓冲区下操作大量数据用 StringBuilder。
+（3）单线程操作字符串缓冲区下经常拼接替换用 StringBuilder。
 
 ##### 1.6.2String str="i"与 String str=new String("i")一样吗？
 
@@ -176,15 +179,13 @@ StringBuilder 并没有对方法进行加同步锁，所以是非线程安全的
 所以可以用常量池来存
 因为多个引用指向的String不可变,每个引用都修改不了String的值
 
-
+### 接口和抽象类
 ##### 1.7 接口和抽象类的区别是什么？（必会）
 
 实现：抽象类的子类使用 extends 来继承；接口必须使用 implements 来实现接
 口。
 <font color=#66CC99 style=" font-weight:bold;">构造函数：抽象类可以有构造函数；接口不能有。</font>
 
-main 方法：抽象类可以有 main 方法，并且我们能运行它；接口不能有 main 方
-法。
 实现数量：类可以<font color=#66CC99 style=" font-weight:bold;">实现很多个接口</font>；但是只能继承一个抽象类。
 
 访问修饰符：<font color=#66CC99 style=" font-weight:bold;">接口中的方法默认使用 public 修饰</font>；抽象类中的方法可以是任意访
@@ -201,74 +202,9 @@ main 方法：抽象类可以有 main 方法，并且我们能运行它；接口
   
 不能，定义抽象类就是让其他类继承的，如果定义为 final 该类就不能被继承，这样彼此就会产生矛盾，所以 final 不能修饰抽象类
 
-##### 1.8string常用的方法有哪些？（了解）
-
-indexOf()：返回指定字符的索引。
-
-charAt()：返回指定索引处的字符。
-
-replace()：字符串替换。
-
-trim()：去除字符串两端空白。
-
-split()：分割字符串，返回一个分割后的字符串数组。
-
-getBytes()：返回字符串的 byte 类型数组。
-
-length()：返回字符串长度。
-
-toLowerCase()：将字符串转成小写字母。
-
-toUpperCase()：将字符串转成大写字符。
-
-substring()：截取字符串。
-
-equals()：字符串比较。
 
 
-
-##### 1.12Java 的异常（必会）
-![](img/Pasted%20image%2020220803011040.png)
-
-Throwable 是所有 Java 程序中错误处理的父类，有两种子类：Error 和Exception。
-
-Error：表示由 JVM 所侦测到的无法预期的错误，由于这是属于<font color=#66CC99 style=" font-weight:bold;"> JVM 层次的严重错误</font>，导致 JVM 无法继续执行，因此，这是不可捕捉到的，无法采取任何恢复的操作，顶多只能显示错误信息。
-
-Exception：表示可恢复的例外，这是可捕捉到的。
-
-1.运行时异常：都是 RuntimeException 类及其子类异常，如
-NullPointerException(空指针异常)、IndexOutOfBoundsException(下标越界异常)等，
-这些异常是不检查异常，程序中可以选择捕获处理，也可以不处理。这些异常一般是由程序
-逻辑错误引起的，程序应该从逻辑角度尽可能避免这类异常的发生。运行时异常的特点是
-<font color=#66CC99 style=" font-weight:bold;">Java 编译器不会检查它</font>，也就是说，当程序中可能出现这类异常，即使没有用 try-catch
-语句捕获它，也没有用 throws 子句声明抛出它，也会编译通过。
-
-2.非运行时异常（编译异常）：是 RuntimeException 以外的异常，类型上都属于 Exception
-类及其子类。从程序语法角度讲是必须进行处理的异常，如果不处理，程序就不能编译通过。
-如<font color=#66CC99 style=" font-weight:bold;"> IOException、 SQLException</font> 等以及用户自定义的 Exception 异常，一般情况下不自定
-义检查异常。
-
-常见的 RunTime 异常几种如下：
-
-NullPointerException - 空指针引用异常
-
-ClassCastException - 类型强制转换异常。
-
-IllegalArgumentException - 传递非法参数异常。
-
-ArithmeticException - 算术运算异常
-
-ArrayStoreException - 向数组中存放与声明类型不兼容对象异常
-
-IndexOutOfBoundsException - 下标越界异常
-
-7NegativeArraySizeException - 创建一个大小为负数的数组错误异常
-
-NumberFormatException - 数字格式异常
-
-SecurityException - 安全异常
-
-UnsupportedOperationException - 不支持的操作异常
+### 异常
 
 ##### 1.12.2java中的异常处理关键字是什么？
 throw：有时我们明确要创建异常对象然后抛出它来停止程序的正常处理。throw关键字用于向运行时抛出异常来处理它。
@@ -291,23 +227,19 @@ finalize是Object类的一个方法，在<font color=#66CC99 style=" font-weight
 
 1、不管有没有出现异常，finally块中代码都会执行；
 
-2、当try和catch中有return时，finally仍然会执行；
+2、当try和catch中有return时，finally仍然会执行, 在return后面的表达式<font color=#66CC99 style=" font-weight:bold;">运算后结果返回前执行</font>；
 
-3、finally是在return后面的表达式<font color=#66CC99 style=" font-weight:bold;">运算后结果返回前执行</font>的
-
-4、finally中最好不要包含return，否则程序会提前退出
+3、finally中最好不要包含return，否则程序会提前退出
 
 ##### 1.12.5什么情况finally不会执行
-一共有三种
 
-    1、不进入try块
+1、不进入try块
        try语句没有被执行到，如在try语句之前就返回了，这样finally语句就不会执行；
 
-    2、程序中止
-        在try块中有System.exit(0);这样的语句，System.exit(0);是终止Java虚拟机JVM的，连JVM都停止了，所有都结束了，当然finally语句也不会被执行到。
+2、程序中止
+        JVM停了
 
-    3、线程中止
-    java线程分为两类，守护线程和非守护线程。当所有的非守护线程中止时，不论存不存在守护线程，虚拟机都会kill掉守护线程从而中止程序。 虚拟机中，执行main方法的线程就是一个非守护线程，垃圾回收则是另一个守护线程，main执行完，程序就中止了，而不管垃圾回收线程是否中止。 所以，如果守护线程中存在finally代码块，那么当所有的非守护线程中止时，守护线程被kill掉，其finally代码块是不会执行的。
+
 
 ##### 1.12.6thorw与thorws区别
 位置不同
