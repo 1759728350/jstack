@@ -104,6 +104,13 @@ public boolean equals(Object anObject) {
 ```
 
 
+##### 1.5什么是hashCode
+字符串和对象有其hashCode
+
+1. **对象相等性判断依据**：
+    
+2. <font color=#99CCFF style=" font-weight:bold;">hash表中快速定位对象</font>
+
 
 ##### 1.5.2两个对象的 hashCode()相同，则 equals()也一定为 true，对吗？
 不对，两个对象的 hashCode()相同，equals()不一定 true。
@@ -115,31 +122,10 @@ System.out.println(s2.hashCode());
 //1179395
 //1179395
 ```
+在Java中，根据对象的哈希码可以快速判断两个对象是否相等。当两个对象的哈希码不相等时，可以直接判定这两个对象不相等；当两个对象的哈希码相等时，还需要通过`equals()`方法进行深度比较来确保对象的相等性。
 
 
-##### 1.5.3什么是hashCode
-字符串和对象有其hashCode
-```java
-	String s1 = "123";  
-	String s2 = "111";  
-	System.out.println(s1.hashCode());  
-	System.out.println(s2.hashCode());
-	//48690
-	//48657
-```
-object类中
-```java
-public native int hashCode();
-```
 
-hashCode()存在的意义是什么？我们通过前面可以了解到hashCode()将一个字符串的值变为了一个整数，那么这样做的作用是什么呢？
-
-1. **对象相等性判断依据**：在Java中，根据对象的哈希码可以快速判断两个对象是否相等。当两个对象的哈希码不相等时，可以直接判定这两个对象不相等；当两个对象的哈希码相等时，还需要通过`equals()`方法进行深度比较来确保对象的相等性。
-    
-2. **集合框架的使用hashCode提高查找性能**：在使用Java集合框架中的一些数据结构时，如HashSet、HashMap等，正确实现`hashCode()`方法可以提高对象在集合中的存储和检索效率。如果两个对象具有相同的`hashCode`，那么它们就有可能会被放在同一个哈希桶中，从而减少了数据的查找时间。
-
-我们平时经常用到map来存储对象，因为map是key，value形式的，它不像list形式的集合可以有顺序的从0开始往集合里放数据，而是随意的放，但是取值的话就很麻烦，因为它存放值的时候没有顺序，所以取值的时候根据key去里面一个一个对比，等找到key相等的值就取出，这样就会造成效率问题而<font color=#66CC99 style=" font-weight:bold;">hashCode的存在主要是用于查找的快捷性</font>。
-当我们用到hashCode()可以看到我们将name计算为3373707，age计算为98511，这样的话我们存值的时候就根据计算后的数值进行对应位置的存储，同样当我们get取值的时候再次将key计算为hashCode()值，因为同一个字符串hashCode()值相等，这个时候我们就可以<font color=#66CC99 style=" font-weight:bold;">直接根据hashCode()值将对应位置的数据取出，就不需要对key一个一个进行对比了，这样大大提高了效率</font>，这就是为什么有hashCode()存在的原因了。
 
 
 ##### 1.6String、StringBuffer、StringBuilder 三者之间的区别（必会）
