@@ -263,3 +263,17 @@ public class ThrowsDemo {
 }
 ```
 
+
+了解数据库, 熟练使用mysql, 熟悉sql语句的编写, 了解mysql事务, 锁, 了解索引优化, 表设计优化以及慢sql优化
+
+擅长使用代码版本管理工具git, 熟悉git的基本操作, 了解版本回退, gitflow工作流, 有四年github提交经历
+
+熟练使用docker容器部署服务,会编写dockerfile, 了解docker compose以及docker网络 , 熟悉使用docker部署云服务到阿里云
+
+擅长java, 熟练使用springboot, springmvc进行业务开发, 熟练使用mybatis, mybatisplus进行业务sql的编写
+
+会简单使用vue框架, 并使用html, css, JavaScript来进行前端页面开发, 会简单使用element, vantUI等组件库进行页面搭建
+
+熟悉使用linux操作系统如centos6, centos7及ubundu, 熟悉使用linux基本操作命令, 了解系统资源监控并在linux上部署和管理服务, 会在linux上进行日志查询并对服务进行简单排错
+
+会使用shell进行简单脚本编写, 了解grep, sed, awk的使用,并进行搜索, 过滤, 修改
